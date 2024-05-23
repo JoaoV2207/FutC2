@@ -31,51 +31,14 @@ class ServicoTimeUsuarioRodada {
         const saldo = usuario.getDataValue("saldo");
         const jogador = await ServicoJogador.buscaJogadorPorId(id_jogador);
         const preco_jogador = jogador.getDataValue("preco");
-        if(qtd_jogadores > 0) {
-            let jogadores_array = jogadores.split(",");
-            jogadores_array.pop();
-            let goleiroTime = 1;
-            let zagueirosTime = 2;
-            let lateraisTime = 2;
-            let meiasTime = 3;
-            let atacantesTime = 3;
-            let tecnicoTime = 1;
-            for(let i = 0; i < jogadores_array.length; i++) {
-                const verificaErroTime = await ServicoJogador.buscaJogadorPorId(parseInt(jogadores_array[i]));
-                console.log(verificaErroTime.getDataValue("posicao"));
-                if(verificaErroTime.getDataValue("id") == id_jogador) throw new Error("Jogador já adicionado");
-                else {
-                    if(verificaErroTime.getDataValue("posicao") == jogador.getDataValue("posicao")) {
-                        if(jogador.getDataValue("posicao") == "Goleiro"){
-                            goleiroTime -= 1;
-                            if(goleiroTime == 0) throw new Error("Já existe um goleiro no time");}
-                    } 
-                    else if (jogador.getDataValue("posicao") == "Zagueiro") {
-                        zagueirosTime -= 1;
-                        if(zagueirosTime == 0) throw new Error("Já existem dois zagueiros no time");
-                    }
-                    else if (jogador.getDataValue("posicao") == "Lateral") {
-                        lateraisTime -= 1;
-                        if(lateraisTime == 0) throw new Error("Já existem dois laterais no time");
-                    }
-                    else if (jogador.getDataValue("posicao") == "Meia") {
-                        meiasTime -= 1;
-                        if(meiasTime == 0) throw new Error("Já existem três meias no time");
-                    }
-                    else if (jogador.getDataValue("posicao") == "Atacante") {
-                        atacantesTime -= 1;
-                        if(atacantesTime == 0) throw new Error("Já existem três atacantes no time");
-                    }
-                    else if (jogador.getDataValue("posicao") == "Tecnico") {
-                        tecnicoTime -= 1;
-                        if(tecnicoTime < 0) throw new Error("Já existe um tecnico no time");
-                    }
-                }
-            }
-        }
+
+        const posicao_novo_jogador = jogador.getDataValue("posicao");
+
+        if(qtd_jogadores > 0) await this.verificaErroAdicionarJogador(jogadores, id_jogador, posicao_novo_jogador, saldo, preco_time, preco_jogador);
+
         jogadores += jogador.getDataValue("id") + ",";
         qtd_jogadores += 1;
-        if (preco_time + preco_jogador > saldo!) throw new Error("Saldo insuficiente");
+
         const novotime = await timeUsuarioRodada.update({ jogadores:  jogadores, preco: preco_time + preco_jogador, qtd_jogadores: qtd_jogadores });
         return novotime;
     }
@@ -108,5 +71,53 @@ class ServicoTimeUsuarioRodada {
         const jogadores = await ServicoJogador.retornaListaDeJogadores(time.getDataValue("jogadores"));
         return { time: time, jogadores: jogadores };
     }
+
+    async verificaErroAdicionarJogador(jogadores: string, id_jogador: number, posicao_novo_jogador: string, saldo: number | undefined, preco_time: number, preco_jogador: number) 
+    {
+        let jogadores_array = jogadores.split(",");
+        jogadores_array.pop();
+
+        let goleiroTime = 1;
+        let zagueirosTime = 2;
+        let lateraisTime = 2;
+        let meiasTime = 3;
+        let atacantesTime = 3;
+        let tecnicoTime = 1;
+        for(let i = 0; i < jogadores_array.length; i++) {
+            const jogador_time = await ServicoJogador.buscaJogadorPorId(parseInt(jogadores_array[i]));
+            if(jogador_time.getDataValue("id") == id_jogador) throw new Error("Jogador já adicionado");
+            else {
+                const posicao_jogador_time = jogador_time.getDataValue("posicao");
+                if(posicao_jogador_time == posicao_novo_jogador) {
+                    if(posicao_novo_jogador == "Goleiro"){
+                        goleiroTime -= 1;
+                        if(goleiroTime == 0) throw new Error("Já existe um goleiro no time");}
+                } 
+                else if (posicao_novo_jogador == "Zagueiro") {
+                    zagueirosTime -= 1;
+                    if(zagueirosTime == 0) throw new Error("Já existem dois zagueiros no time");
+                }
+                else if (posicao_novo_jogador == "Lateral") {
+                    lateraisTime -= 1;
+                    if(lateraisTime == 0) throw new Error("Já existem dois laterais no time");
+                }
+                else if (posicao_novo_jogador == "Meia") {
+                    meiasTime -= 1;
+                    if(meiasTime == 0) throw new Error("Já existem três meias no time");
+                }
+                else if (posicao_novo_jogador == "Atacante") {
+                    atacantesTime -= 1;
+                    if(atacantesTime == 0) throw new Error("Já existem três atacantes no time");
+                }
+                else if (posicao_novo_jogador == "Tecnico") {
+                    tecnicoTime -= 1;
+                    if(tecnicoTime < 0) throw new Error("Já existe um tecnico no time");
+                }
+            }
+        }
+        if (preco_time + preco_jogador > saldo!) throw new Error("Saldo insuficiente");
+    }
+
 }
+
 export default new ServicoTimeUsuarioRodada();
