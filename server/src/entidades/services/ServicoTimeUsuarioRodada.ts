@@ -34,7 +34,6 @@ class ServicoTimeUsuarioRodada {
         if(qtd_jogadores > 0) {
             let jogadores_array = jogadores.split(",");
             jogadores_array.pop();
-
             let goleiroTime = 1;
             let zagueirosTime = 2;
             let lateraisTime = 2;
@@ -46,27 +45,28 @@ class ServicoTimeUsuarioRodada {
                 console.log(verificaErroTime.getDataValue("posicao"));
                 if(verificaErroTime.getDataValue("id") == id_jogador) throw new Error("Jogador já adicionado");
                 else {
-                    if(verificaErroTime.getDataValue("posicao") == "Goleiro" && jogador.getDataValue("posicao") == "Goleiro") {
-                        goleiroTime -= 1;
-                        if(goleiroTime == 0) throw new Error("Já existe um goleiro no time");
+                    if(verificaErroTime.getDataValue("posicao") == jogador.getDataValue("posicao")) {
+                        if(jogador.getDataValue("posicao") == "Goleiro"){
+                            goleiroTime -= 1;
+                            if(goleiroTime == 0) throw new Error("Já existe um goleiro no time");}
                     } 
-                    else if (verificaErroTime.getDataValue("posicao") == "Zagueiro" && jogador.getDataValue("posicao") == "Zagueiro") {
+                    else if (jogador.getDataValue("posicao") == "Zagueiro") {
                         zagueirosTime -= 1;
-                        if(zagueirosTime == 0) throw new Error("Já existe dois zagueiros no time");
+                        if(zagueirosTime == 0) throw new Error("Já existem dois zagueiros no time");
                     }
-                    else if (verificaErroTime.getDataValue("posicao") == "Lateral" && jogador.getDataValue("posicao") == "Lateral") {
+                    else if (jogador.getDataValue("posicao") == "Lateral") {
                         lateraisTime -= 1;
-                        if(lateraisTime == 0) throw new Error("Já existe dois laterais no time");
+                        if(lateraisTime == 0) throw new Error("Já existem dois laterais no time");
                     }
-                    else if (verificaErroTime.getDataValue("posicao") == "Meia" && jogador.getDataValue("posicao") == "Meia") {
+                    else if (jogador.getDataValue("posicao") == "Meia") {
                         meiasTime -= 1;
-                        if(meiasTime == 0) throw new Error("Já existe três meias no time");
+                        if(meiasTime == 0) throw new Error("Já existem três meias no time");
                     }
-                    else if (verificaErroTime.getDataValue("posicao") == "Atacante" && jogador.getDataValue("posicao") == "Atacante") {
+                    else if (jogador.getDataValue("posicao") == "Atacante") {
                         atacantesTime -= 1;
-                        if(atacantesTime == 0) throw new Error("Já existe três atacantes no time");
+                        if(atacantesTime == 0) throw new Error("Já existem três atacantes no time");
                     }
-                    else if (verificaErroTime.getDataValue("posicao") == "Tecnico" && jogador.getDataValue("posicao") == "Tecnico") {
+                    else if (jogador.getDataValue("posicao") == "Tecnico") {
                         tecnicoTime -= 1;
                         if(tecnicoTime < 0) throw new Error("Já existe um tecnico no time");
                     }
