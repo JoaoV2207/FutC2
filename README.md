@@ -1,8 +1,8 @@
 Sistema web de fantasy de futebol do campeonato Brasileiro 2024
 
-1 - Grupo:
-João Vitor Mateus Silva - 2020425801
-Lucas Jacone da Silva - 2019006922
+1 - Grupo:<br>
+João Vitor Mateus Silva - 2020425801 <br>
+Lucas Jacone da Silva - 2019006922 <br>
 Kleber Junior Alves Pereira 2020054625
 
 2 - Explicação do Sistema:
