@@ -12,7 +12,7 @@ a pontuação de seus jogadores.
 
 Pensando nisso, surgiu a ideia de criar uma nova versão de um dos mais famosos fantasy games presentes no mercado, o Cartola FC. Nele cada usuário cria um time em que nele são utilizados jogadores dos clubes do brasileirão para criação de um equipe com 11 jogadores e 1 técnico, e a atuação desses jogadores define os pontos finais daquele time.
 
-No nosso sistema, além de funções de cadastro de time(Usuário) e Login, temos um banco de dados com os jogadores de todos os clubes do brasileirão 2023, com suas fotos e características. Com esses jogadores, conseguimos adicionar e retirar jogadores a nosso time, seguindo uma escalação pré definida (433). Com isso podemos salvar nossa escalação e editá-la a qualquer momento além de checar as informações de todos os jogadores que estão ou não em nosso time.
+No nosso sistema, além de funções de cadastro de time(Usuário) e Login, temos um banco de dados com os jogadores de todos os clubes do brasileirão 2024, com suas fotos e características. Com esses jogadores, conseguimos adicionar e retirar jogadores a nosso time, seguindo uma escalação pré definida (433). Com isso podemos salvar nossa escalação e editá-la a qualquer momento além de checar as informações de todos os jogadores que estão ou não em nosso time.
 
 3 - Explicação das tecnologias utilizadas:
 Para a concepção do nosso trabalho, utilizamos a linguagem typescript, e o framework Node.js para construção do código back-end e suas rotas, além 
