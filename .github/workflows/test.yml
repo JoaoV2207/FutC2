@@ -1,0 +1,27 @@
+name: Unit Tests
+
+on: [push]
+
+jobs:
+  unit-tests:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node-version: [20.x]
+      
+    defaults:
+      run:
+        working-directory: server
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Npm Packages
+        run: npm install
+      - name: Unit Tests
+        run: npm test
